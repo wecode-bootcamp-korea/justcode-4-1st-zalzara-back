@@ -6,3 +6,110 @@ datasource db {
     provider = "mysql"
     url      = env("DATABASE_URL")
 }
+
+model Categories {
+    id   Int    @id @default(autoincrement())
+    name String
+
+    @@map("categories")
+}
+
+model Products {
+    id          Int       @id @unique
+    name        String
+    category_id Int
+    is_new      Boolean
+    description String
+    materials   Materials @relation(fields: [material_id], references: [id])
+    material_id Int
+    cares       Cares     @relation(fields: [care_id], references: [id])
+    care_id     Int
+    origins     Origins   @relation(fields: [origin_id], references: [id])
+    origin_id   Int
+
+    Sizes  Sizes[]
+    Images Images[]
+    @@map("products")
+}
+
+model Materials {
+    id   Int    @id
+    name String
+
+    Products Products[]
+    @@map("materials")
+}
+
+model Cares {
+    id       Int        @id
+    name     String
+    Products Products[]
+    icons    Icons      @relation(fields: [icon_id], references: [id])
+    icon_id  Int
+
+    @@map("cares")
+}
+
+model Origins {
+    id       Int        @id
+    name     String
+    Products Products[]
+
+    @@map("origins")
+}
+
+model Sizes {
+    id         Int      @id
+    size       String
+    products   Products @relation(fields: [product_id], references: [id])
+    product_id Int
+    Prices     Prices[]
+    Stocks     Stocks[]
+
+    @@map("sizes")
+}
+
+model Prices {
+    id      Int   @id
+    size    Sizes @relation(fields: [size_id], references: [id])
+    size_id Int
+    price   Int
+
+    @@map("prices")
+}
+
+model Images {
+    id         Int      @id
+    image_url  String
+    products   Products @relation(fields: [product_id], references: [id])
+    product_id Int
+
+    @@map("images")
+}
+
+model Icons {
+    id       Int     @id
+    icon_url String
+    Cares    Cares[]
+
+    @@map("icons")
+}
+
+model Stocks {
+    id      Int   @id
+    stock   Int
+    sizes   Sizes @relation(fields: [size_id], references: [id])
+    size_id Int
+
+    @@map("stocks")
+}
+
+model Users {
+    id                           Int      @id
+    email                        String
+    password                     String
+    username                     String
+    personal_info_privacy_policy Boolean  @default(false)
+    overseas_privacy_policy      Boolean  @default(false)
+    created_at                   DateTime @default(now())
+}
