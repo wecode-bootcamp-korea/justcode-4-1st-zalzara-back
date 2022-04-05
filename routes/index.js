@@ -5,7 +5,8 @@ const userRouter = require("./userRouter");
 const productRouter = require("./productRouter");
 const cartRouter = require("./cartRouter");
 
-router.use("/", productRouter);
+router.get("/", (req, res) => res.json({ message: "Home" }));
+router.use("/categories", productRouter);
 router.use("/user", userRouter);
 router.use("/shop-cart", cartRouter);
 
