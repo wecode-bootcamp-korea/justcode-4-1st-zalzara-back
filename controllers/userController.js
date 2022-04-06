@@ -1,4 +1,5 @@
-const UserSerive = require("../services/userService");
+const userService = require('../services/userService');
+
 // const userDao = require('../models/userDao')
 // //회원가입
 // const signUp = async (email.password) => {
@@ -19,7 +20,7 @@ const UserSerive = require("../services/userService");
 //   }
 
 const check = (req, res) => {
-  console.log("aaa");
+  console.log('aaa');
 };
 //   if (!email || !password) {
 //     const error = new Error('KEY_ERROR');
