@@ -3,11 +3,16 @@ const productRouter = express.Router();
 
 const productController = require("../controllers/productController");
 
-// list
-productRouter.route("/").get().post();
+// category list
+productRouter.get("/", productController.showCategories);
 
-// detail
-productRouter.route("/product/:id").get(productController.showDetail);
-productRouter.get("/:id", productController.showCategory);
+// products list
+productRouter
+  .route("/:category")
+  .get(productController.showList)
+  .post(productController.postCart);
+
+// product detail
+productRouter.route("/:category/:id").get(productController.showDetail);
 
 module.exports = productRouter;
