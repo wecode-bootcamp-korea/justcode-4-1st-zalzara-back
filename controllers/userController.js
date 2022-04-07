@@ -19,6 +19,8 @@ const signUp = async (req, res) => {
   try {
     const { email, password, username, policyAgreed, overseasPrivacy } =
       req.body;
+    console.log(req.body);
+
     await userService.signUp(
       email,
       password,

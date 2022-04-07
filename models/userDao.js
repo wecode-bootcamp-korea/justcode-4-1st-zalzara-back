@@ -2,6 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const getUserByEmail = async (email) => {
+  console.log('daodao');
   return await prisma.$queryRaw`
     SELECT email FROM users WHERE email = ${email}
     `;

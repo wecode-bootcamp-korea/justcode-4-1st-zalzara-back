@@ -27,7 +27,7 @@ const signUp = async (
     error.statusCode = 409;
     throw error;
   }
-  if (!validatePw.test(password)) {
+  if (!!validatePw.test(password)) {
     const error = new Error('PASSWORD_INVALID');
     error.statusCode = 409;
     throw error;
