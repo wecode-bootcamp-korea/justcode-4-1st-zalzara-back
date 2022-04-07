@@ -1,15 +1,15 @@
-const express = require("express");
+const express = require('express');
 const productRouter = express.Router();
 
-const productController = require("../controllers/productController");
+const productController = require('../controllers/productController');
 
 // category list
-productRouter.get("/", productController.showCategories);
+productRouter.get('/', productController.showCategories);
 
 // products list
-productRouter.route("/:category").get(productController.showList);
+productRouter.route('/:category').get(productController.showList);
 
 // product detail
-productRouter.route("/:category/:id").get(productController.showDetail);
+productRouter.route('/:category/:id').get(productController.showDetail);
 
 module.exports = productRouter;

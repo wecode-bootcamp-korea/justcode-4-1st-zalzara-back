@@ -1,41 +1,60 @@
+const res = require('express/lib/response');
 const userService = require('../services/userService');
+// const { PrismaClient } = require('@prisma/client');
 
-// const userDao = require('../models/userDao')
-// //회원가입
-// const signUp = async (email.password) => {
+const validateUser = async (req, res, next) => {
+  const { email, password, username, policyAgreed, overseasPrivacy } = req.body;
 
-//     if (password.length < 8) {
-//       const error = new Error ('PASSWORD_TOO_SHORT')
-//       error.statusCode = 400
-//       throw error
-//     }
+  if (!email || !password || !username || !policyAgreed || !overseasPrivacy) {
+    res.status(400).json({ message: 'KEY_ERROR' });
+    return;
+  }
 
-//     const user = userDao.
-//   }
-// }
-
-// const logIn = async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-//   }
-
-const check = (req, res) => {
-  console.log('aaa');
+  next();
 };
-//   if (!email || !password) {
-//     const error = new Error('KEY_ERROR');
-//     error.statusCode = 400;
-//     throw error;
-//   }
 
-//   const token = await userService.logIn(email, password);
+// 회원가입
+///controller 가 하는 일은 오로지 request 검증하는 일!
+const signUp = async (req, res) => {
+  try {
+    const { email, password, username, policyAgreed, overseasPrivacy } =
+      req.body;
+    await userService.signUp(
+      email,
+      password,
+      username,
+      policyAgreed,
+      overseasPrivacy
+    );
+    return res.status(201).json({
+      message: 'SIGNUP_SUCCESS',
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(err.statusCode || 500).json({ message: err.message });
+  }
+};
 
-//   return res.status(201).json({ message: 'LOGIN_SUCCESS', jwt: token});
-// } catch(err) {
-//   return res.statusCode(err.statusCode || 500).json({ message: err.message });
-//   }
-// };
+// 로그인
+
+const logIn = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      const error = new Error('KEY ERROR');
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const token = await userService.logIn(email, password);
+    return res.status(201).json({ message: 'SUCCESS_LOGIN', token });
+  } catch (err) {
+    res.status(err.statusCode || 500).json({ message: err.message });
+  }
+};
 
 module.exports = {
-  check,
+  validateUser,
+  signUp,
+  logIn,
 };
