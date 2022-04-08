@@ -17,11 +17,11 @@ const createUser = async (
 ) => {
   console.log('createUser');
   return await prisma.$queryRaw`
-    INSERT INTO users (email, password, username, personal_info_privacy_policy, overseas_privacy_policy) VALUES (${email}, ${encryptedPw}, ${username}, ${policyAgreed}, ${overseasPrivacy})`;
+    INSERT INTO users (email, password, username, personal_info_privacy_policy, overseas_privacy_policy) VALUES (${email}, ${encryptedPw}, ${username}, ${policyAgreed}, ${overseasPrivacy}
+      `;
 };
 
 const verifyUser = async (email) => {
-  //비번도 있어야되나? 있다면 password 아님 encrtpytedPw?
   return await prisma.$queryRaw`
     SELECT id, email, password from users where email = ${email}
   `;

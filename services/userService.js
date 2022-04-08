@@ -20,14 +20,14 @@ const signUp = async (
   const validateEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
   // 계정@도메인.최상위도메인 형식의 데이터 찾기
   const validatePw = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-  // 소문자 한개이상, 대문자 한개이상, 숫자 한개이상, 연속된문자 3개이상 -> 이건안됌 최소8자
+  // 소문자 한개이상, 대문자 한개이상, 숫자 한개이상, 8자 이상
 
   if (!validateEmail.test(email)) {
     const error = new Error('EMAIL_INVALID');
     error.statusCode = 409;
     throw error;
   }
-  if (!!validatePw.test(password)) {
+  if (!validatePw.test(password)) {
     const error = new Error('PASSWORD_INVALID');
     error.statusCode = 409;
     throw error;
@@ -60,22 +60,7 @@ const signUp = async (
     overseasPrivacy
   );
 
-  // const createUser = await userDao.createUser(
-  //   email,
-  //   password,
-  //   username,
-  //   policyAgreed,
-  //   overseasPrivacy
-  // );
   return createUser;
-
-  //   const encryptedPW = bcrypt.hashSync(password, bcrypt.genSaltSync());
-
-  //   const newUser = await userDao.createUser(email, encryptedPW);
-  //   console.log('after calling useDao in userServie 2');
-
-  //   return newUser;
-  // return;
 };
 
 const logIn = async (email, password) => {
