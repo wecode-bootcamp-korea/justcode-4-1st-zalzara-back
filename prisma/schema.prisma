@@ -16,7 +16,7 @@ model Category {
 }
 
 model Product {
-    id          Int      @id @unique @default(autoincrement())
+    id          Int      @id @default(autoincrement())
     name        String
     category    Category @relation(fields: [category_id], references: [id])
     category_id Int
@@ -40,12 +40,14 @@ model Material {
     name String
 
     Product Product[]
+
     @@map("materials")
 }
 
 model Origin {
     id      Int       @id @default(autoincrement())
     name    String
+    
     Product Product[]
 
     @@map("origins")
@@ -83,7 +85,7 @@ model Image {
 }
 
 model User {
-    id                           Int      @id
+    id                           Int      @id @default(autoincrement())
     email                        String   @unique
     password                     String
     username                     String
