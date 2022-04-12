@@ -4,9 +4,9 @@ const cartService = require('../services/cartService')
 const addCart = async (req, res) => {
 	try {
     const { product_id } = req.body
-    const cart = await cartService.addCart(product_id)
+    await cartService.addCart(product_id)
 
-		res.status(200).json({ message: cart })
+		res.status(200).json({ message: "ADD_CART_SUCCESS" })
 	} catch (err) {
     console.log(err)
     return res.status(err.statusCode || 500).json({ message: err.message })
