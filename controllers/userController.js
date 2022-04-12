@@ -9,7 +9,6 @@ const validateUser = async (req, res, next) => {
     res.status(400).json({ message: 'KEY_ERROR' });
     return;
   }
-
   next();
 };
 
