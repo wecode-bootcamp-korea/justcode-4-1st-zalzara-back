@@ -12,6 +12,7 @@ productRouter
   .get(productController.showList)
   .post(productController.postCartFromList);
 
+
 // product detail
 productRouter.route("/:category/:id").get(productController.showDetail);
 

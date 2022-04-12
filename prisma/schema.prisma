@@ -30,6 +30,7 @@ model Product {
     Size        Size[]
     Image       Image[]
     ProductSize ProductSize[]
+    ShopCart    ShopCart[]
 
     @@map("products")
 }
@@ -54,10 +55,9 @@ model Size {
     id   Int    @id @default(autoincrement())
     size String
 
-    Product     Product?      @relation(fields: [productId], references: [id])
-    productId   Int?
+    Product     Product?      @relation(fields: [product_id], references: [id])
+    product_id  Int?
     ProductSize ProductSize[]
-
 
     @@map("sizes")
 }
@@ -92,4 +92,13 @@ model User {
     created_at                   DateTime @default(now())
 
     @@map("users")
+}
+
+model ShopCart {
+    id         Int     @id @default(autoincrement())
+    quantity   Int
+    product_id Int
+    product    Product @relation(fields: [product_id], references: [id])
+
+    @@map("shopcarts")
 }

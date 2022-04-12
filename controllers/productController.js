@@ -28,3 +28,4 @@ const postCartFromList = async (req, res) => {
 };
 
 module.exports = { showDetail, showList, showCategories, postCartFromList };
+
