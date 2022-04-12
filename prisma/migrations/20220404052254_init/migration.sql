@@ -21,6 +21,13 @@ CREATE TABLE `products` (
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+CREATE TABLE shopcarts (
+    id int NOT NULL AUTO_INCREMENT ,
+    quantity int
+    product_id int,
+
+     PRIMARY KEY(id)
+)
 -- CreateTable
 CREATE TABLE `materials` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,

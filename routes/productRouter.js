@@ -10,7 +10,7 @@ productRouter.get("/", productController.showCategories);
 productRouter
   .route("/:category")
   .get(productController.showList)
-  .post(productController.postCart);
+  .post(productController.postCartFromList);
 
 // product detail
 productRouter.route("/:category/:id").get(productController.showDetail);
