@@ -11,7 +11,7 @@ const showList = async (req, res) => {
   const { category } = req.params;
   try {
     const products = await productService.showLists(category);
-    return res.status(200).json(products);
+    return res.status(200).json({ products });
   } catch (err) {
     return res.status(err.statusCode || 500).json({ message: err.message });
   }
@@ -24,7 +24,6 @@ const showDetail = (req, res) => {
 
 const postCartFromList = async (req, res) => {
   const { id } = req.body;
-  console.log(id);
   return await productDao.fillCartTable(id);
 };
 
