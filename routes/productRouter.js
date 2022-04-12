@@ -7,7 +7,10 @@ const productController = require('../controllers/productController');
 productRouter.get('/', productController.showCategories);
 
 // products list
-productRouter.route('/:category').get(productController.showList);
+productRouter
+  .route("/:category")
+  .get(productController.showList)
+  .post(productController.postCartFromList);
 
 // product detail
 productRouter.route('/:category/:id').get(productController.showDetail);
