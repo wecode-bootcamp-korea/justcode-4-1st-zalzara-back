@@ -3,7 +3,7 @@ const productDao = require("../models/productDao");
 const showLists = async (category) => {
   let products = await productDao.productsByCategory(category);
   products.forEach((element) => {
-    element.prices = element.prices[0];
+    element.prices = Object.values(element.prices[0]).join("");
   });
 
   const nothingErr = new Error("nothing here");
