@@ -17,9 +17,14 @@ const showList = async (req, res) => {
   }
 };
 
-const showDetail = (req, res) => {
+const showDetail = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  try {
+    const productDetail = await productService.showDetail(id);
+    return res.status(200).json({ productDetail });
+  } catch (err) {
+    return res.status(err.statusCode || 500).json({ message: err.message });
+  }
 };
 
 const postCartFromList = async (req, res) => {

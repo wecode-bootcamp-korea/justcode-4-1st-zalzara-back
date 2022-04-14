@@ -1,13 +1,14 @@
 const productDao = require("../models/productDao");
 
+const nothingErr = new Error("nothing here");
+nothingErr.statusCode = 404;
+
 const showLists = async (category) => {
   let products = await productDao.productsByCategory(category);
   products.forEach((element) => {
-    element.prices = element.prices[0];
+    element.size = Object.keys(element.prices[0]).join("");
+    element.prices = Object.values(element.prices[0]).join("");
   });
-
-  const nothingErr = new Error("nothing here");
-  nothingErr.statusCode = 404;
 
   if (products.length === 0) {
     throw nothingErr;
@@ -16,4 +17,13 @@ const showLists = async (category) => {
   }
 };
 
-module.exports = { showLists };
+const showDetail = async (id) => {
+  let product = await productDao.findById(id);
+  if (product === undefined || product === null) {
+    throw nothingErr;
+  } else {
+    return product;
+  }
+};
+
+module.exports = { showLists, showDetail };
