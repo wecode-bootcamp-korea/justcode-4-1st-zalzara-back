@@ -1,4 +1,4 @@
-const productDao = require("../models/productDao");
+const productDao = require('../models/productDao');
 
 const showLists = async (category) => {
   let products = await productDao.productsByCategory(category);
@@ -6,7 +6,7 @@ const showLists = async (category) => {
     element.prices = element.prices[0];
   });
 
-  const nothingErr = new Error("nothing here");
+  const nothingErr = new Error('nothing here');
   nothingErr.statusCode = 404;
 
   if (products.length === 0) {

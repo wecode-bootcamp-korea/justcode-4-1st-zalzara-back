@@ -1,6 +1,4 @@
-const res = require('express/lib/response');
 const userService = require('../services/userService');
-// const { PrismaClient } = require('@prisma/client');
 
 const validateUser = async (req, res, next) => {
   const { email, password, username, policyAgreed, overseasPrivacy } = req.body;
@@ -12,13 +10,11 @@ const validateUser = async (req, res, next) => {
   next();
 };
 
-// 회원가입
 ///controller 가 하는 일은 오로지 request 검증하는 일!
 const signUp = async (req, res) => {
   try {
     const { email, password, username, policyAgreed, overseasPrivacy } =
       req.body;
-    console.log(req.body);
 
     await userService.signUp(
       email,
@@ -31,7 +27,6 @@ const signUp = async (req, res) => {
       message: 'SIGNUP_SUCCESS',
     });
   } catch (err) {
-    console.log(err);
     return res.status(err.statusCode || 500).json({ message: err.message });
   }
 };

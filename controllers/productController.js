@@ -1,5 +1,5 @@
-const productDao = require("../models/productDao");
-const productService = require("../services/productService");
+const productDao = require('../models/productDao');
+const productService = require('../services/productService');
 
 const showCategories = async (req, res) => {
   const categoryLists = await productDao.allCategories();
@@ -28,4 +28,3 @@ const postCartFromList = async (req, res) => {
 };
 
 module.exports = { showDetail, showList, showCategories, postCartFromList };
-

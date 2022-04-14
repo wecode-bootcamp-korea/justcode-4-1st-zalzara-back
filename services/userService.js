@@ -10,7 +10,6 @@ const signUp = async (
   overseasPrivacy
 ) => {
   const user = await userDao.getUserByEmail(email); // 가입할 때 이미 있는 유저면 이메일로 체크하기
-  console.log('after calling useDao in userService 1');
   if (user.length !== 0) {
     const error = new Error('EXISTING_USER');
     error.statusCode = 409;
@@ -43,15 +42,7 @@ const signUp = async (
     throw error;
   }
 
-  console.log('service!!!!!');
-  // if (password.length < 8) {
-  //   const error = new Error('PASSWORD_SHORT');
-  //   error.statusCode = 409;
-  //   throw error;
-  // }
-
-  const encryptedPw = bcrypt.hashSync(password, bcrypt.genSaltSync()); // 솔팅 -> 임의로 생성된 문자열
-  console.log(encryptedPw); // 비밀번호 암호화
+  const encryptedPw = bcrypt.hashSync(password, bcrypt.genSaltSync()); // 솔팅 -> 임의로 생성된 문자열/ 비밀번호 암호화
   const createUser = await userDao.createUser(
     email,
     encryptedPw,
@@ -67,7 +58,7 @@ const logIn = async (email, password) => {
   // 회원가입 된 유저인지 확인
   const user = await userDao.verifyUser(email, password);
   if (user.length === 0) {
-    const error = new Error('INVALID_USER');
+    const error = new Error('NO_USER');
     error.statusCode = 400;
     throw error;
   }

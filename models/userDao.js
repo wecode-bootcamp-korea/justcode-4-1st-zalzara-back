@@ -14,7 +14,6 @@ const createUser = async (
   policyAgreed,
   overseasPrivacy
 ) => {
-  console.log('createUser');
   return await prisma.$queryRaw`
     INSERT INTO users (email, password, username, personal_info_privacy_policy, overseas_privacy_policy) VALUES (${email}, ${encryptedPw}, ${username}, ${policyAgreed}, ${overseasPrivacy})
       `;
