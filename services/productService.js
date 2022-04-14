@@ -19,6 +19,11 @@ const showLists = async (category) => {
 
 const showDetail = async (id) => {
   let product = await productDao.findById(id);
+  product.forEach((element) => {
+    element.size = Object.keys(element.price[0]).join("");
+    element.price = Object.values(element.price[0]).join("");
+  });
+
   if (product === undefined || product === null) {
     throw nothingErr;
   } else {
