@@ -6,3 +6,101 @@ datasource db {
     provider = "mysql"
     url      = env("DATABASE_URL")
 }
+
+model Category {
+    id   Int    @id @default(autoincrement())
+    name String
+
+    Products Product[]
+    @@map("categories")
+}
+
+model Product {
+    id          Int      @id @default(autoincrement())
+    name        String
+    category    Category @relation(fields: [category_id], references: [id])
+    category_id Int
+    description String
+    material    Material @relation(fields: [material_id], references: [id])
+    material_id Int
+    origin      Origin   @relation(fields: [origin_id], references: [id])
+    origin_id   Int
+    uid         String   @unique
+
+    Size        Size[]
+    Image       Image[]
+    ProductSize ProductSize[]
+    ShopCart    ShopCart[]
+
+    @@map("products")
+}
+
+model Material {
+    id   Int    @id @default(autoincrement())
+    name String
+
+    Product Product[]
+
+    @@map("materials")
+}
+
+model Origin {
+    id      Int       @id @default(autoincrement())
+    name    String
+    
+    Product Product[]
+
+    @@map("origins")
+}
+
+model Size {
+    id   Int    @id @default(autoincrement())
+    size String
+
+    Product     Product?      @relation(fields: [product_id], references: [id])
+    product_id  Int?
+    ProductSize ProductSize[]
+
+    @@map("sizes")
+}
+
+model ProductSize {
+    id         Int     @id @default(autoincrement())
+    product    Product @relation(fields: [product_id], references: [id])
+    product_id Int
+    price      Int
+    size       Size    @relation(fields: [size_id], references: [id])
+    size_id    Int
+
+    @@map("product_size")
+}
+
+model Image {
+    id         Int     @id @default(autoincrement())
+    image_url  String
+    product    Product @relation(fields: [product_id], references: [id])
+    product_id Int
+
+    @@map("images")
+}
+
+model User {
+    id                           Int      @id @default(autoincrement())
+    email                        String   @unique
+    password                     String
+    username                     String
+    personal_info_privacy_policy Boolean  @default(false)
+    overseas_privacy_policy      Boolean  @default(false)
+    created_at                   DateTime @default(now())
+
+    @@map("users")
+}
+
+model ShopCart {
+    id         Int     @id @default(autoincrement())
+    quantity   Int
+    product_id Int
+    product    Product @relation(fields: [product_id], references: [id])
+
+    @@map("shopcarts")
+}
